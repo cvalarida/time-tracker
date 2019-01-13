@@ -65,6 +65,7 @@ class App extends Component {
         <Clocks
           startTime={this.state.activeTimer.startTime}
           ticks={this.state.ticks}
+          timeEntries={this.state.timeEntries}
         />
         <Timer
           isRunning={!!this.state.activeTimer.startTime}

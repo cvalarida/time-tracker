@@ -2,7 +2,7 @@ import React from "react";
 import { format, differenceInSeconds } from "date-fns";
 import "./EntryList.css";
 
-import { formatTimeDifference, secondsToFormattedTime } from "./utils";
+import { formattedTimeDifference, secondsToFormattedTime } from "./utils";
 
 const TimeEntry = ({ entry }) => (
   <div>
@@ -10,7 +10,7 @@ const TimeEntry = ({ entry }) => (
     {format(entry.startTime, "HH:mm:ss")} <strong>End time:</strong>{" "}
     {format(entry.stopTime, "HH:mm:ss")}
     <strong>Duration:</strong>{" "}
-    {formatTimeDifference(entry.startTime, entry.stopTime)}
+    {formattedTimeDifference(entry.startTime, entry.stopTime)}
   </div>
 );
 

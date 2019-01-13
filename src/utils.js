@@ -1,9 +1,5 @@
 import _ from "lodash/fp";
-import {
-  differenceInHours,
-  differenceInMinutes,
-  differenceInSeconds
-} from "date-fns";
+import { differenceInSeconds } from "date-fns";
 
 // Returns epoch time in seconds
 export const currentTime = () => Date.now();
@@ -31,16 +27,29 @@ const padTimeUnit = number => number.toString().padStart(2, "0");
 /**
  * Takes two times and returns the difference as a time string "HH:mm:ss"
  */
-export const formatTimeDifference = (start, stop) => {
-  const hours = padTimeUnit(differenceInHours(stop, start));
-  const minutes = padTimeUnit(differenceInMinutes(stop, start) % 60);
-  const seconds = padTimeUnit(differenceInSeconds(stop, start) % 60);
-  return `${hours}:${minutes}:${seconds}`;
-};
+export const formattedTimeDifference = (from, to) =>
+  secondsToFormattedTime(differenceInSeconds(to, from));
 
 export const secondsToFormattedTime = seconds => {
+  if (!seconds) {
+    return "00:00:00";
+  }
   const ss = seconds % 60;
   const mm = Math.floor(seconds / 60) % 60;
   const HH = Math.floor(Math.floor(seconds / 60) / 60);
   return `${padTimeUnit(HH)}:${padTimeUnit(mm)}:${padTimeUnit(ss)}`;
+};
+
+export const formattedTimeTotal = (...timeEntries) => {
+  console.log("timeEntries:", timeEntries);
+  const totalSeconds = timeEntries.reduce(
+    (total, entry) =>
+      total +
+      (entry.startTime
+        ? differenceInSeconds(entry.stopTime, entry.startTime)
+        : 0),
+    0
+  );
+  console.log("totalSeconds:", totalSeconds);
+  return secondsToFormattedTime(totalSeconds);
 };
