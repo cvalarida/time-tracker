@@ -17,8 +17,8 @@ const TimeEntry = ({ entry }) => (
 const EntryList = ({ timeEntries }) => {
   return (
     <div className="EntryList">
-      {timeEntries.map(entry => (
-        <TimeEntry entry={entry} />
+      {timeEntries.map((entry, index) => (
+        <TimeEntry entry={entry} key={index} />
       ))}
       <h4>
         Total:{" "}
