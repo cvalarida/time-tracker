@@ -29,10 +29,7 @@ class App extends Component {
   startTimer = () => {
     // Start timer to update the clock every second
     this.ticker = setInterval(
-      () =>
-        this.setState(
-          _.set("activeTimer.ticks", this.state.ticks + 1, this.state)
-        ),
+      () => this.setState(_.set("ticks", this.state.ticks + 1, this.state)),
       1000
     );
 
