@@ -23,7 +23,6 @@ export const setMany = (operations, base) =>
 
 const padTimeUnit = number => number.toString().padStart(2, "0");
 
-// Is there a better alternative?
 /**
  * Takes two times and returns the difference as a time string "HH:mm:ss"
  */
@@ -41,7 +40,6 @@ export const secondsToFormattedTime = seconds => {
 };
 
 export const formattedTimeTotal = (...timeEntries) => {
-  console.log("timeEntries:", timeEntries);
   const totalSeconds = timeEntries.reduce(
     (total, entry) =>
       total +
@@ -50,6 +48,12 @@ export const formattedTimeTotal = (...timeEntries) => {
         : 0),
     0
   );
-  console.log("totalSeconds:", totalSeconds);
   return secondsToFormattedTime(totalSeconds);
 };
+
+export const totalSecondsFromEntries = timeEntries =>
+  timeEntries.reduce(
+    (total, entry) =>
+      total + differenceInSeconds(entry.stopTime, entry.startTime),
+    0
+  );
