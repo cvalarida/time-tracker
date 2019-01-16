@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { format } from "date-fns";
+import { format, isThisWeek } from "date-fns";
 import "./Clocks.css";
 
 import {
@@ -21,20 +21,32 @@ const Clocks = props => {
         {startTime ? (
           <Fragment>
             <h1>Started timer at: {format(startTime, "HH:mm:ss")}</h1>
-            <span>{timerString}</span>
           </Fragment>
         ) : (
           <h1>Timer not started</h1>
         )}
       </div>
       <div className="running-totals">
-        <span className="total">
-          Total:{" "}
+        <div className="current-clock">
+          Current: {timerString || "00:00:00"}
+        </div>
+        <div className="day-clock">
+          Day:{" "}
           {formattedTimeTotal(...props.timeEntries, {
             startTime,
             stopTime: currentTime()
           })}
-        </span>
+        </div>
+        <div className="week-clock">
+          Week:{" "}
+          {formattedTimeTotal(
+            ...props.timeEntries.filter(entry => isThisWeek(entry.startTime)),
+            {
+              startTime,
+              stopTime: currentTime()
+            }
+          )}
+        </div>
       </div>
     </div>
   );
